@@ -2,4 +2,5 @@
     margin-top: 44px;
     display: flex;
     justify-content: center;
+    @apply dark:bg-cr-dark-bg;
 }
