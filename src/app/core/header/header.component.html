@@ -1,0 +1,98 @@
+<nav class="flex navbar fixed z-10 px-6 md:px-12 py-4 md:py-6 w-full">
+    <div class="navbar-start flex-grow">
+      <div class="dropdown">
+        <label role="button"
+          tabindex="0"
+          class="btn btn-ghost hover:text-[#9BC3DD] hover:bg-transparent lg:hidden" 
+          toggle-aria-label
+          aria-expanded="false"
+          aria-label="Icono hamburguer para desplegar el menú"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"  
+            role="img"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h8m-8 6h16"
+            />
+          </svg>
+        </label>
+        <ul
+          tabindex="0"
+          class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+          role="menu"
+        >
+          <li role="menuitem"><a routerLink="home" routerLinkActive="activated">Inicio</a></li>
+          <li role="menuitem"><a routerLink="about" routerLinkActive="activated">Sobre mí</a></li>
+          <li role="menuitem" class="px-3">Servicios
+            <ul class="p-2" role="menu">
+              <li role="menuitem"><a routerLink="services/info" routerLinkActive="activated">Información</a></li>
+              <li role="menuitem"><a routerLink="services/emotional-support" routerLinkActive="activated">Acompañamiento</a></li>
+              <li role="menuitem"><a routerLink="services/women-circles" routerLinkActive="activated">Círculos de mujeres</a></li>
+              <li role="menuitem"><a routerLink="services/courses" routerLinkActive="activated">Cursos y talleres</a></li>
+              <li role="menuitem"><a routerLink="services/terms" routerLinkActive="activated">Términos y condiciones</a></li>
+            </ul>
+          </li>
+          <li role="menuitem"><a routerLink="blog" routerLinkActive="activated">Blog</a></li>
+          <ng-container *ngIf="isLoggedIn$ | async">
+            <li role="menuitem"><a routerLink="admin/add-content" routerLinkActive="activated">Zona Admin</a></li>
+            <li role="menuitem"><a (click)="logout()">LOGOUT</a></li>
+          </ng-container>
+        </ul>
+      </div>
+  
+      <a
+        class="hidden lg:inline-flex text-xl flex-col align-middle text-cr-blue dark:text-white text-center"
+        routerLink="home"
+        >C R E A R (S E)<small class="text-center text-cr-blue dark:text-cr-blue subbrand"
+          >P &nbsp;s &nbsp;i &nbsp;c &nbsp;o &nbsp;l &nbsp;o &nbsp;g &nbsp;í
+          &nbsp;a &nbsp; y &nbsp; A &nbsp;r &nbsp;t &nbsp;e</small
+        ></a
+      >
+    </div>
+  
+    <div class="navbar-center">
+      <a
+        class="lg:hidden text-xl flex flex-col align-middle text-cr-blue dark:text-white"
+        routerLink="home"
+        >C R E A R (S E)<small class="text-center dark:text-slate-300 subbrand"
+          >A &nbsp;r &nbsp;t &nbsp;e &nbsp;T &nbsp;e &nbsp;r &nbsp;a &nbsp;p
+          &nbsp;i &nbsp;a</small
+        ></a
+      >
+      <ul class="hidden lg:flex menu menu-horizontal px-1" role="menu">
+        <li role="menuitem"><a routerLink="home" routerLinkActive="activated">Inicio</a></li>
+        <li role="menuitem"><a routerLink="about" routerLinkActive="activated">Sobre mí</a></li>
+        <li role="menuitem" tabindex="0">
+          <details #servicesDropdown>
+            <summary aria-haspopup="true" (click)="toggleServices()" [attr.aria-expanded]="servicesIsOpen">Servicios</summary>
+            <ul role="menu" class="p-2">
+              <li role="menuitem"><a routerLink="services/info" routerLinkActive="activated">Información</a></li>
+              <li role="menuitem"><a routerLink="services/emotional-support" routerLinkActive="activated">Acompañamiento</a></li>
+              <li role="menuitem"><a routerLink="services/women-circles" routerLinkActive="activated">Círculos de mujeres</a></li>
+              <li role="menuitem"><a routerLink="services/courses" routerLinkActive="activated">Cursos y talleres</a></li>
+              <li role="menuitem"><a routerLink="services/terms" routerLinkActive="activated">Términos y condiciones</a></li>
+            </ul>
+          </details>
+        </li>
+        <li role="menuitem"><a routerLink="blog" routerLinkActive="activated">Blog</a></li>
+        <ng-container *ngIf="isLoggedIn$ | async">
+          <li role="menuitem">
+            <a routerLink="admin/add-content" routerLinkActive="activated" class="admin">Zona Admin</a>
+          </li>
+          <li role="menuitem"><a (click)="logout()" class="admin">LOGOUT</a></li>
+        </ng-container>
+      </ul>
+    </div>
+  
+    <div class="navbar-end" *ngIf="(isLoggedIn$|async) == false">
+      <app-whatsapp-btn class="primary" role="button"><span class="hidden md:inline">PIDE CITA</span></app-whatsapp-btn>
+    </div>
+</nav>

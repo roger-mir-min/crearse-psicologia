@@ -1,0 +1,40 @@
+:host, :host>nav{
+    font-family: 'Julius';
+    color: black;
+    @apply bg-white dark:bg-cr-dark-gray dark:text-white dark:opacity-100;
+}
+
+nav.navbar{
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.activated{
+    font-weight: bold;
+}
+
+.navbar li a, .navbar li summary{
+    
+    &.admin{
+        @apply text-cr-blue
+    }
+    &:hover{
+        background-color: white;
+        color: black;
+
+        &:not(.admin){
+        @apply text-cr-blue dark:text-white dark:bg-cr-dark-gray-dark;
+        }
+    }
+    &:focus{
+        background-color: white;
+        @apply dark:bg-cr-dark-gray-dark;
+    }
+    &:active{
+        background-color: white;
+        @apply dark:bg-cr-dark-gray-dark;
+    }
+}
+
+.subbrand{
+    font-family: 'Zarid';
+}

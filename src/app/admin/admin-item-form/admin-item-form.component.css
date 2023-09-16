@@ -1,0 +1,8 @@
+div{
+    @apply mb-4;
+}
+
+.mt-auto{
+    margin-top: auto;
+}
+

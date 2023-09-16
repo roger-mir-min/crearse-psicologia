@@ -1,0 +1,1 @@
+export const defaultImg = '../../../assets/images/stains.webp';

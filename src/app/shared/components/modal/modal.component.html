@@ -1,0 +1,10 @@
+<div class="confirmation-modal">
+    <div class="relative confirmation-modal-body rounded">
+        <h1>¿Seguro que quieres <ng-content></ng-content>?</h1>
+        <button class="btn primary-btn me-5 mb-5" (click)="close()">No</button>
+        <ng-content select="[option]"></ng-content>
+        <ng-content select="[button]"></ng-content>
+
+        <img class="absolute top-3 right-3 hover:scale-125 cursor-pointer" (click)="close()" src="../../../../assets/icons/icon-cross.png" alt="cross-icon">
+    </div>
+</div>

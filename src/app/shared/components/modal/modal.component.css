@@ -1,0 +1,18 @@
+:host {
+    display: none;
+    background-color: blue;
+}
+
+.confirmation-modal {
+    
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    background-color: rgba(0, 0, 0, .75);
+    padding: 40px;
+}
+    
+.confirmation-modal-body {
+    padding: 30px;
+    background: #fff;
+}

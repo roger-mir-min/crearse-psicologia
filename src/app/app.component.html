@@ -1,0 +1,9 @@
+<app-header></app-header>
+<main class="pt-[5.5rem] md:pt-[6.5rem] bg-white dark:bg-[#EFEFEF]"><app-body></app-body></main>
+<app-footer class="mt-auto"></app-footer>
+
+<div class="loading-spinner-container" *ngIf="(loading$|async)">
+    <span class="loader one"></span>
+    <span class="loader two"></span>
+    <span class="loader"></span>
+</div>

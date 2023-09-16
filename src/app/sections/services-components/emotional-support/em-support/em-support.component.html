@@ -1,0 +1,35 @@
+<ng-container *ngIf="emSubj|async as emSupport">
+<div class="item-container bg-cr-blue2/[0.16] p-5 md:p-10">
+  <h1 id="title" class="text-center md:text-start">{{emSupport.title}}</h1>
+
+  <ng-container *ngIf="isLoggedIn$|async">
+    <div class="mb-5">
+      <button (click)="editMode=!editMode" class="me-4 text-blue-500 hover:text-blue-700" aria-label="Cambiar entre editor y texto de lectura" aria-haspopup="true" aria-controls="editor, onlyReadText">
+        <svg role="img" aria-label="Lápiz, botón para cambiar entre editor y texto de sólo lectura" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil inline" viewBox="0 0 16 16">
+          <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+        </svg>
+        Editor
+      </button>
+      <button (click)="openConfirmationModal()" class="danger-button">Elimina el ítem de acompañamiento emocional</button>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="(isLoggedIn$|async) && editMode == true; else onlyReadEditor">
+    <app-admin-item-form id="editor" [type]="'em-support'" [initialItem]="emSupport" (submitEvent)="modifyItem($event)"></app-admin-item-form>
+  </ng-container>
+
+  <ng-template #onlyReadEditor>
+    <angular-editor id="onlyReadEditor" aria-label="Información del servicio de acompañamiento emocional" aria-labelledby="title" class="all-initial" [(ngModel)]="emSupport.text" [config]="editorConfig"></angular-editor>
+  </ng-template>
+
+  <span *ngIf="modificationIsFinished$|async" class="mt-4 text-green-500">Modificación guardada correctamente</span>
+  <span *ngIf="isError$|async" class="text-red-500">Error al guardar el ítem de acompañamiento</span>
+
+  <div>
+    <p>Tarifa: {{emSupport.budget}}</p>
+  </div>
+
+</div>
+</ng-container>
+
+<app-modal><span>eliminar este ítem de acopañamiento</span><button button (click)="deleteItem()">Sí</button></app-modal>

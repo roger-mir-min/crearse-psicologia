@@ -1,0 +1,58 @@
+:host{
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  @apply bg-cr-dark-bg;
+}
+
+.loading-spinner-container {
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 100%;
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  z-index: 2;
+}
+
+.loader {
+  @apply bg-cr-blue;
+  width: 48px;
+  height: 48px;
+  display: inline-block;
+  border-radius: 50%;
+  box-sizing: border-box;
+  animation: animloader 2.5s ease-in infinite;
+}
+
+.loader.one{
+    animation-delay: -1s;
+  }
+
+.loader.two{
+    animation-delay: -0.5s;
+  }
+
+  .loader.three{
+    animation-delay: -1.5s;
+  }
+
+@keyframes animloader {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  60% {
+    transform: scale(1);
+    opacity: 0;
+  }
+
+  100%{
+    transform: scale(1);
+    opacity: 0;
+  }
+} 
+
+

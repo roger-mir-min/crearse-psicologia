@@ -1,0 +1,181 @@
+/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://db.onlinewebfonts.com/c/fd5fc4060a6e4d402fc0c45fad1f852f?family=F29LT+Zarid+Display+Regular');
+
+@import 'buttons';
+
+@font-face {
+    font-family: "Zarid";
+    src: url("https://db.onlinewebfonts.com/t/fd5fc4060a6e4d402fc0c45fad1f852f.eot");
+    src: url("https://db.onlinewebfonts.com/t/fd5fc4060a6e4d402fc0c45fad1f852f.eot?#iefix")format("embedded-opentype"),
+    url("https://db.onlinewebfonts.com/t/fd5fc4060a6e4d402fc0c45fad1f852f.woff2")format("woff2"),
+    url("https://db.onlinewebfonts.com/t/fd5fc4060a6e4d402fc0c45fad1f852f.woff")format("woff"),
+    url("https://db.onlinewebfonts.com/t/fd5fc4060a6e4d402fc0c45fad1f852f.ttf")format("truetype"),
+    url("https://db.onlinewebfonts.com/t/fd5fc4060a6e4d402fc0c45fad1f852f.svg#F29LT Zarid Display Regular")format("svg");
+    font-display:swap;
+}
+
+@font-face {
+    font-family: "PatuaOne";
+    src: local("PatuaOne"), url('../assets/fonts/PatuaOne-Regular.ttf') format("truetype");
+    font-display:swap;
+}
+
+@font-face {
+    font-family: "Crimson Text";
+    src: local("Crimson Text"), url('../assets/fonts/CrimsonText-Regular.ttf') format("truetype");
+    font-display:swap;
+}
+
+@font-face {
+    font-family: "Lexend";
+    src: local("Lexend"), url('../assets/fonts/Lexend-VariableFont_wght.ttf') format("truetype");
+    font-display:swap;
+}
+
+@font-face {
+    font-family: "Lexend Tera";
+    src: local("LexendTera"), url('../assets/fonts/LexendTera-VariableFont_wght.ttf') format("truetype");
+    font-display:swap;
+}
+
+@font-face {
+    font-family: "Lexend Deca";
+    src: local("Lexend Deca"), url('../assets/fonts/LexendDeca-VariableFont_wght.ttf') format("truetype");
+    font-display:swap;
+}
+
+@font-face {
+    font-family: "Julius";
+    src: local("JuliusOne"), url('../assets/fonts/JuliusSansOne-Regular.ttf') format("truetype");
+    font-display:swap;
+}
+
+body{
+    background: white;
+    min-height: 100vh;
+    font-size: 18px;
+    font-family: 'Crimson Text';
+    color: $cr-blue3;
+    @apply dark:bg-cr-dark-bg dark:text-white;
+}
+
+input{
+    @apply border rounded bg-white dark:bg-slate-600;
+}
+
+
+//.danger{ @apply text-red-500 italic; }
+
+    .angular-editor-textarea {
+
+        
+
+        &:not(app-admin-item-form .angular-editor-textarea){
+            border-style: none !important;
+            border-width: 0 !important;
+            padding: 0 !important;
+            margin-top: 0px;
+            resize:none;
+            &::after{
+                display:none;
+            }
+        }
+
+        // selector que digui: div que NO té imatge, no resize etc.
+        div:has(:not(img)){
+            resize:none;
+            margin:0;
+        }
+        // }
+
+        & img{
+        display: block;
+        object-fit:fill;
+        margin-right: auto;
+        margin-left: auto;
+        }
+
+    }
+
+    section div.angular-editor-textarea{
+        padding: 0 !important;
+    }
+
+angular-editor div:not(app-admin-item-form div):has(img).resize{
+    resize:none;
+}
+
+app-about angular-editor div.resize:has(img){
+    @apply hidden md:inline md:float-right ms-5;
+    width: 33% !important;
+}
+
+@media (prefers-color-scheme: dark) {
+    .angular-editor-textarea:not(app-admin-item-form  .angular-editor-textarea) {
+        color: rgb(255 255 255) !important;
+    }
+}
+
+@layer base{
+    ul{
+        @apply list-disc list-outside ms-5 md:ms-7;
+    }
+    section.info ul{
+        margin-left: 18px;
+    }
+    ol{
+        @apply list-decimal list-inside;
+        margin-left: 30px;
+    }
+    h1 {
+    @apply text-5xl mb-8;
+    font-family: 'Julius';
+    }
+    h2 {
+        @apply text-4xl;
+        @apply mb-4;
+        font-family: 'Julius';
+    }
+    h3 {
+        @apply text-3xl;
+        font-family: 'Julius';
+    }
+    h4 {
+        @apply text-2xl;
+        font-family: 'Julius';
+    }
+    h5 {
+        @apply text-xl;
+        font-family: 'Julius';
+    }
+    h6 {
+        @apply text-lg;
+        font-family: 'Julius';
+    }
+}
+
+@layer components {
+    .standard-button{
+        @apply bg-blue-500 text-white font-bold py-2 px-4 rounded;
+    &:hover {
+        @apply bg-blue-700;
+        }
+    &:focus {
+        @apply outline-none;
+        }
+    }
+
+    .danger-button{
+        @apply text-red-500;
+            &:hover{
+        @apply text-red-800;
+        }
+    }
+
+}
+
+@import '/node_modules/ngx-sharebuttons/themes/default.scss';

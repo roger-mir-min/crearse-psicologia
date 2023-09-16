@@ -1,0 +1,34 @@
+<h1 class="text-center">Sobre mí</h1>
+<div class="flex items-center flex-col gap-8 md:flex-row md:items-start">
+  <img src="../../../assets/images/ximena-sosa-psicoanalista.webp" alt="Foto de Ximena Sosa, psicoanalista" class="block md:hidden md:order-2 md:w-1/3 lg:w-[25%] md:ms-8">
+  
+  
+  <div class="w-full md:w-full">
+    <!--Botó d'editar (admin, no edit-mode)-->
+    <ng-container *ngIf="isLoggedIn$|async">
+      <div class="mb-5">
+        <button (click)="editMode=!editMode" class="me-4 text-blue-500 hover:text-blue-700" aria-label="Cambiar entre editor y texto de lectura" aria-haspopup="true" aria-controls="editor, onlyReadText">
+          <svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Lápiz, botón para cambiar entre editor y texto de sólo lectura" width="16" height="16" fill="currentColor" class="bi bi-pencil inline" viewBox="0 0 16 16">
+            <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+          </svg>
+          Editor
+        </button>
+      </div>
+    </ng-container>
+    
+    <ng-container *ngIf="secondary$|async as secondaryArr">
+      <!--Editor (admin, edit-mode)-->
+      <ng-container *ngIf="(isLoggedIn$|async) && editMode == true; else onlyReadEditor">
+       <app-admin-item-form id="editor" aria-label="editor" [type]="'text'" [initialItem]="{text: secondaryArr[0].about}" (submitEvent)="modifyItem($event)" aria-hidden="false"></app-admin-item-form>
+      </ng-container>
+    
+      <!--Text normal (no admin, read-only)-->
+      <ng-template #onlyReadEditor>
+          <angular-editor id="onlyReadText" aria-label="Texto de lectura" class="all-initial" [(ngModel)]="secondaryArr[0].about" [config]="editorConfig" aria-hidden="false"></angular-editor>
+      </ng-template>
+    </ng-container>
+  </div>
+</div>
+
+<span *ngIf="modificationIsFinished$|async" class="mt-4 text-green-500">Modificación guardada correctamente</span>
+<span *ngIf="isError$|async" class="text-red-500">Error al guardar la biografía</span>

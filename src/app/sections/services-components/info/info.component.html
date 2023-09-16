@@ -1,0 +1,102 @@
+<h1 class="text-center md:text-start">Servicios</h1>
+
+
+<!--Botó d'editar (admin, no edit-mode)-->
+<ng-container *ngIf="isLoggedIn$|async">
+  <div class="mb-6">
+    Si quieres escribir enlaces para redirigir a los servicios, escríbelos así (sin las comillas): "services/emotional-support" para 
+    el acompañamiento emocional, "services/women-circles" para los círculos de mujeres, "services/courses" para los cursos
+  </div>
+  <div class="mb-5">
+    <button (click)="editMode=!editMode" class="me-4 text-blue-500 hover:text-blue-700" aria-label="Cambiar entre editor y texto de lectura" aria-haspopup="true" aria-controls="editor, onlyReadText">
+      <svg role="img" aria-label="Lápiz, botón para cambiar entre editor y texto de sólo lectura" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil inline" viewBox="0 0 16 16">
+        <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+      </svg>
+      Editor
+    </button>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="secondary$|async as secondaryArr">
+<!--Editor (admin, edit-mode)-->
+<ng-container *ngIf="(isLoggedIn$|async) && editMode == true; else onlyReadEditor">
+  <app-admin-item-form id="onlyReadText" [type]="'text'" [initialItem]="{text: secondaryArr[0].info}" (submitEvent)="modifyItem($event)" aria-hidden="false" aria-label="editor"></app-admin-item-form>
+  </ng-container>
+
+  <!--Text normal (no admin, read-only)-->
+  <ng-template #onlyReadEditor>
+      <angular-editor id="editor" class="all-initial" [(ngModel)]="secondaryArr[0].info" [config]="editorConfig" aria-hidden="false" aria-label="Texto de lectura"></angular-editor>
+  </ng-template>
+</ng-container>
+
+<span *ngIf="modificationIsFinished$|async" class="mt-4 text-green-500">Modificación guardada correctamente</span>
+<span *ngIf="isError$|async" class="text-red-500">Error al guardar la información</span>
+
+
+
+<!-- <h2>Descripción de los servicios brindados:</h2>
+<ol class="mb-8">
+    <li>
+        <b>Orientación/acompañamiento emocional:</b> La orientación básica implica proporcionar información general y educativa sobre temas relacionados con la salud y el bienestar. Puedes ofrecer consejos prácticos, responder preguntas comunes y brindar recomendaciones generales para ayudar a las personas a comprender mejor su situación y tomar decisiones informadas sobre su salud. Incluye:
+        Técnicas de relajación: Las técnicas de relajación son prácticas que ayudan a reducir el estrés y promover la relajación mental y física. Algunas técnicas populares incluyen la respiración profunda, la meditación, el yoga, la visualización y la relajación muscular progresiva. Puedes proporcionar instrucciones e indicaciones claras sobre cómo practicar estas técnicas para que las personas puedan llevarlas a cabo por sí mismas.
+        Escucha activa: La escucha activa implica pres
+    </li>tar atención de manera atenta y respetuosa a lo que otra persona está compartiendo. Cuando brindas escucha activa, demuestras empatía, comprensión y apoyo hacia la persona que está hablando. Puedes ofrecer un espacio seguro y acogedor para que las personas expresen sus preocupaciones, emociones o pensamientos, sin juzgarlos ni interrumpirlos.
+
+    <li>
+        <b>Círculos de mujers:</b> Los círculos de mujeres son grupos o comunidades formados exclusivamente por mujeres que se reúnen con el propósito de conectar, apoyar y empoderarse mutuamente. Estos círculos suelen basarse en la idea de crear un espacio seguro y confidencial donde las mujeres pueden compartir sus experiencias, emociones, pensamientos y desafíos sin juicio ni crítica.
+    En estos círculos, las mujeres comparten sus historias, escuchan activamente a las demás, ofrecen consejos, apoyo emocional y construyen vínculos significativos. A menudo, los círculos de mujeres se centran en temas relacionados con la feminidad, el crecimiento personal, el bienestar, la espiritualidad y el empoderamiento. La finalidad de los círculos de mujeres es fomentar una sensación de comunidad y unidad entre las participantes, brindando un espacio propicio para la autenticidad, la vulnerabilidad y el crecimiento personal. Estas reuniones pueden llevarse a cabo en persona o de manera virtual, y generalmente se guían por facilitadoras o líderes que crean un ambiente de confianza y respeto.
+    </li>
+
+    <li><b>Talleres</b>: Subiré diferente contenido de talleres donde encontrarás información que te ayudará con tu salud mental, física y emocional.
+    </li>
+</ol>
+
+<p class="mb-8">Puedo acompañar a una amplia variedad de personas que se encuentren en diferentes situaciones:</p>
+
+<ul class="mb-8">
+    - Cualquier persona que necesite un espacio seguro para ser escuchada: Si estás buscando un lugar donde puedas expresarte sin juicio y encontrar apoyo emocional, estaré aquí para ti.<br>
+    - Cualquier persona que necesite orientación emocional: Si necesitas ayuda para gestionar tus emociones, aprender técnicas de relajación, mejorar tu calidad de vida, alcanzar tus objetivos personales o establecer hábitos saludables, puedo brindarte el apoyo necesario. <br>
+    - Cualquier persona que busca psicoeducación: Si tienes interés en aprender sobre diferentes aspectos de la psicología y cómo aplicarlos en tu vida diaria, puedo ofrecerte recursos y conocimientos para que adquieras una mayor comprensión de ti mismo/a y de los demás.<br>
+    - Cualquier persona migrante que necesite un espacio accesible para hablar: Si eres migrante y enfrentas dificultades específicas relacionadas con la adaptación, la identidad cultural, el estrés migratorio u otros desafíos, estaré aquí para proporcionarte un ambiente seguro y acogedor donde puedas compartir tus experiencias y recibir apoyo emocional.
+</ul>
+
+<p class="mb-8">No importa cuál sea tu situación, mi objetivo es brindarte un acompañamiento amable, paciente y respetuoso para ayudarte a encontrar las herramientas y soluciones que necesitas. Estoy aquí para ti.</p>
+
+
+<h3>¿A quién puedo ayudar refiriéndolo con un especialista? </h3>
+
+<p class="mb-8">
+    En casos de esquizofrenia, paranoia, bipolaridad o perversiones sexuales, es importante que las personas sean referidas a profesionales de la salud mental con experiencia y formación específica en el manejo de estos trastornos. Un psiquiatra o psicólogo clínico especializado en estos temas puede brindar una evaluación adecuada, un diagnóstico preciso y un tratamiento apropiado.
+    
+    Como acompañante emocional,  puedo ayudarte a encontrar recursos y profesionales en tu área que se especialicen en trastornos de personalidad complicados como los mencionados. Sin embargo, es importante tener en cuenta que no puedo proporcionar diagnósticos ni tratamientos, ya que mi función principal es brindar información y orientación general.
+    
+    Si crees que necesitas ayuda especializada para abordar alguno de estos trastornos, te recomendaría buscar un profesional de la salud mental en tu localidad, como un psiquiatra, psicólogo clínico o terapeuta sexual. Ellos podrán proporcionarte un enfoque terapéutico individualizado y adecuado a tus necesidades.Diferencia entre Acompañamiento emocional y psicoterapia: Es importante dejar claro que al iniciar un proceso de acompañamiento conmigo, no llevaríamos a cabo un proceso psicoterapéutico, ya que no cuento con la formación específica para atender casos graves de personalidad. Sin embargo, tengo experiencia diagnóstica, por lo cual, si estás buscando ayuda, en una primera sesión podemos averiguar si este espacio puede ser de ayuda y funcionar para ti, o si requieres de un especialista que pueda atender mejor tus necesidades. En ese caso, te derivaría con otro especialista que te brindará una ayuda más especializada. A continuación, te explico la diferencia entre mi servicio como acompañante emocional y el servicio de un psicoterapeuta.
+    
+    Antes de vernos, te haré llegar un consentimiento informado detallando la terapia de acompañamiento que tendrás conmigo. Si tienes alguna duda o no es de tu interés, me comprometo a ayudarte a buscar la corriente psicológica o al profesional que más te pueda beneficiar. Mi deseo es poder ayudarte, si bien, no en un proceso terapéutico, sí en la psicoeducación necesaria para que encuentres tu camino hacia tu bienestar personal.
+    Como acompañante emocional, mi objetivo principal es brindarte apoyo emocional, escucha activa y herramientas para abordar dificultades y malestares cotidianos. Sin embargo, es importante tener en cuenta que no cuento con la formación específica en España, para tratar casos graves de personalidad como la esquizofrenia, paranoia, bipolaridad o perversiones sexuales. Si durante nuestras sesiones identificamos que tus necesidades requieren una atención especializada, te puedo referir a un especialista que pueda brindarte la ayuda adecuada.
+</p>
+
+
+<h3>Definición de Diferentes servicios: </h3>
+
+
+<p class="mb-8">
+    Acompañamiento emocional: Mi función como acompañante emocional es proporcionar un espacio seguro y de apoyo, pero si tus necesidades requieren una intervención más especializada, estoy comprometido en ayudarte a buscar el profesional adecuado que pueda brindarte la atención que necesitas. Mi objetivo es siempre tu bienestar y brindarte orientación en el camino hacia tu mejor versión.
+    
+    El arte terapia, dentro del enfoque humanista, utiliza el arte como herramienta terapéutica para ayudar a las personas a explorar sus emociones, expresarse y simbolizar su mundo interior. No requiere habilidades artísticas previas y tiene como objetivo principal el proceso terapéutico, más que la creación estética.
+    Acompañamiento emocional: El acompañamiento emocional lo lleva a cabo un psicólogo capacitado para comprender los procesos emocionales de las personas. Conoce herramientas para ayudar a abordar dificultades y malestares específicos de la cotidianidad. Desde la visión humanista de la psicología, todas las personas tienen la capacidad para resolver sus problemas y un psicólogo puede ayudarles a desarrollar su potencial creador.
+</p>
+
+<h2>TERMINOS Y CONDICIONES: </h2>
+
+<p>Estoy en proceso de recibir la homologación de mi titulo en España, es por eso que no ofrezco un acompañamiento psicoterapéutico. 
+En España, existen ciertos servicios de salud en línea que pueden ser ofrecidos sin necesidad de estar colegiado como profesional sanitario. Estos servicios se consideran orientativos o informativos y no implican un diagnóstico o tratamiento específico para una condición médica. Algunos ejemplos incluyen:
+</p>
+
+<ol>
+    <li>Servicios de información general: Puedes proporcionar información general sobre temas de salud y bienestar, siempre y cuando no ofrezcas asesoramiento personalizado o específico para una persona en particular.</li>
+    <li>Asesoramiento no sanitario: Si tienes conocimientos en áreas como nutrición, ejercicio o estilo de vida saludable, puedes ofrecer asesoramiento en estas áreas sin necesidad de estar colegiado. Sin embargo, debes tener cuidado de no ofrecer consejos de salud que puedan considerarse diagnósticos o tratamientos médicos.</li>
+    <li>Apoyo emocional o bienestar mental: Puedes ofrecer servicios de apoyo emocional o bienestar mental, siempre y cuando no realices actividades terapéuticas específicas o tratamientos clínicos. Por ejemplo, puedes brindar orientación básica, técnicas de relajación o escucha activa.</li>
+</ol>
+<p>Es importante tener en cuenta que estos servicios no deben suplantar la atención médica o terapéutica profesional. Siempre es recomendable que los usuarios consulten con un profesional colegiado para obtener un diagnóstico preciso y un tratamiento adecuado.</p>
+<p>Recuerda que esta información puede variar y es recomendable consultar con un asesor legal o entidades reguladoras competentes para obtener información actualizada y precisa sobre la legalidad de los servicios de salud en línea en tu área específica.</p> -->

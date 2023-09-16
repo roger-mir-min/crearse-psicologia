@@ -1,0 +1,1 @@
+export type ItemType = 'course' | 'article' | 'em-support' | 'women';

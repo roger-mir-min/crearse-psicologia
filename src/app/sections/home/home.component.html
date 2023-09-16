@@ -1,0 +1,406 @@
+<header
+  class="mb-8 pt-8 md:px-0 h-48 md:h-72"
+  data-aos="fade"
+  data-aos-duration="1000"
+  data-aos-easing="ease-in-cubic"
+>
+<h1 class="h-full mb-0">
+  <!-- <img
+    src="./../../../assets/images/logo-gran.png" alt="Logo de Crearse"
+    class="block m-auto w-full md:w-5/12"
+  /> -->
+</h1>
+</header>
+
+<ng-container *ngIf="homeData$|async as homeDataStream">
+<!--ABOUT SECTION-->
+<section
+  class="pt-10 flex flex-col md-lg:flex-row md-lg:gap-24"
+>
+  <div class="w-full md-lg:w-4/6 text-justify">
+    <div class="flex">
+      <h2 id="about-title" class="text-center flex-grow md-lg:text-start">Psicóloga Ximena Sosa</h2>
+      <!--Botó d'editar (admin, no edit-mode)-->
+      <ng-container *ngIf="isLoggedIn$|async">
+        <div class="mb-5 ms-6">
+          <button
+            (click)="selectEditor('about')"
+            class="me-4 text-blue-500 hover:text-blue-700" 
+            aria-controls="aboutEditor about-onlyReadText"
+          >
+            <svg 
+              role="img"
+              aria-label="Lápiz, botón para cambiar entre editor y texto de sólo lectura"
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-pencil inline"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"
+              />
+            </svg>
+            Editor
+          </button>
+        </div>
+      </ng-container>
+    </div>
+
+    <!--Editor (admin, edit-mode)-->
+    <ng-container
+      *ngIf="
+        (isLoggedIn$ | async) && selectedEditor == 'about';
+        else onlyReadEditorAbout
+      "
+    >
+      <app-admin-item-form id="aboutEditor" aria-label="editor de la biografía (about)"
+        [type]="'text'"
+        [initialItem]="{ text: homeDataStream.about }"
+        (submitEvent)="modifyItem($event)"
+      ></app-admin-item-form>
+    </ng-container>
+
+    <!--Text normal (no admin, read-only)-->
+    <ng-template #onlyReadEditorAbout>
+      <angular-editor
+      id="about-onlyReadText"
+        aria-label="texto de la biografía (about)"
+        aria-labelledby="about-title"
+        class="all-initial"
+        [(ngModel)]="homeDataStream.about"
+        [config]="editorConfig"
+      ></angular-editor>
+    </ng-template>
+
+    <div class="mt-14 inf flex justify-center">
+      <a
+        class="btn primary-btn"
+        routerLink="/about"
+        data-aos="fade"
+        data-aos-duration="2000"
+      >
+        Más sobre mí
+      </a>
+    </div>
+  </div>
+    <div class="flex justify-center md:block md:mt-10 md:mt-0">
+    <!-- <img class="w-72" src="./../../../assets/images/shape1.png"> -->
+    <img
+      class="about-img hidden md-lg:block w-56"
+      src="./../../../assets/images/ximena-sosa-psicoanalista.webp"
+      alt="Foto de Ximena Sosa, psicoanalista" 
+      loading="lazy"
+    />
+  </div>
+</section>
+
+<!--INFO SECTION-->
+<section class="bg-cr-blue2/[0.16] info text-center">
+  <div class="flex justify-center md:justify-normal">
+      <h2 id="info-title">Servicios</h2>
+      <!--Botó d'editar (admin, no edit-mode)-->
+      <ng-container *ngIf="isLoggedIn$|async">
+        <div class="mb-5 ms-6">
+          <button
+            (click)="selectEditor('services')"
+            class="me-4 text-blue-500 hover:text-blue-700" 
+            aria-controls="info-editor info-onlyReadText"
+          >
+            <svg
+              role="img"
+              aria-label="Lápiz, botón para cambiar entre editor y texto de sólo lectura"
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-pencil inline"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"
+              />
+            </svg>
+            Editor
+          </button>
+        </div>
+      </ng-container>
+    </div>
+<ng-container
+      *ngIf="
+        (isLoggedIn$ | async) && selectedEditor == 'services';
+        else onlyReadEditorServices
+      "
+    >
+      <app-admin-item-form 
+      id="info-editor"
+        [type]="'text'"
+        [initialItem]="{ text: homeDataStream.services }"
+        (submitEvent)="modifyItem($event)"
+      ></app-admin-item-form>
+    </ng-container>
+
+    <!--Text normal (no admin, read-only)-->
+    <ng-template #onlyReadEditorServices>
+      <angular-editor id="info-onlyReadText" 
+      aria-label="Servicio 1"
+      aria-labelledby="info-title"
+        class="all-initial"
+        [(ngModel)]="homeDataStream.services"
+        [config]="editorConfig"
+      ></angular-editor>
+    </ng-template>
+
+  <div>
+    <a
+      class="btn primary-btn mt-8"
+      routerLink="/services/info"
+      data-aos="fade"
+      data-aos-easing="linear"
+      data-aos-duration="2000"
+    >
+      Ver más
+    </a>
+  </div>
+</section>
+
+<!--SERVICES SECTION-->
+
+<section class="services">
+  <!--EDIT BUTTONS-->
+  <div class="mb-2">
+    <ng-container *ngIf="isLoggedIn$|async">
+      <span class="text-black">
+        <button
+          (click)="selectEditor('service1')"
+          class="me-4 text-black hover:text-blue-700" 
+          aria-controls="service1-editor service1-onlyReadText"
+        >
+          <svg
+            role="img"
+            aria-label="Lápiz, botón para cambiar entre editor y texto de sólo lectura"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-pencil inline"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"
+            />
+          </svg>
+          Editor1
+        </button>
+      </span>
+    </ng-container>
+    <ng-container *ngIf="isLoggedIn$|async">
+      <span class="mb-5 ms-6 text-black">
+        <button
+          (click)="selectEditor('service2')"
+          class="me-4 text-black hover:text-blue-700" 
+          aria-controls="service2-editor service2-onlyReadText"
+        >
+          <svg
+            role="img"
+            aria-label="Lápiz, botón para cambiar entre editor y texto de sólo lectura"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-pencil inline"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"
+            />
+          </svg>
+          Editor2
+        </button>
+      </span>
+    </ng-container>
+    <ng-container *ngIf="isLoggedIn$|async">
+      <span class="mb-5 ms-6">
+        <button
+          (click)="selectEditor('service3')"
+          class="me-4 text-black hover:text-blue-700" 
+          aria-controls="service3-editor service3-onlyReadText"
+        >
+          <svg
+            alt="Lápiz, botón para activar edición"
+            alt="Lápiz, botón para cambiar entre editor y texto de sólo lectura"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-pencil inline"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"
+            />
+          </svg>
+          Editor3
+        </button>
+      </span>
+    </ng-container>
+  </div>
+  
+  <!--EDITOR-->
+  <ng-container
+      *ngIf="
+        (isLoggedIn$ | async) && selectedEditor == 'service1'
+      "
+    >
+      <app-admin-item-form id="service1-editor"
+        [type]="'text'"
+        [initialItem]="{ text: homeDataStream.service1 }"
+        (submitEvent)="modifyItem($event)"
+      ></app-admin-item-form>
+    </ng-container>
+  <ng-container
+      *ngIf="
+        (isLoggedIn$ | async) && selectedEditor == 'service2'
+      "
+    >
+      <app-admin-item-form id="service2-editor"
+        [type]="'text'"
+        [initialItem]="{ text: homeDataStream.service2 }"
+        (submitEvent)="modifyItem($event)"
+      ></app-admin-item-form>
+    </ng-container>
+  <ng-container
+      *ngIf="
+        (isLoggedIn$ | async) && selectedEditor == 'service3'
+      "
+    >
+      <app-admin-item-form id="service3-editor"
+        [type]="'text'"
+        [initialItem]="{ text: homeDataStream.service3 }"
+        (submitEvent)="modifyItem($event)"
+      ></app-admin-item-form>
+    </ng-container>
+
+  <!--CONTENT-->
+  <div class="flex justify-center items-center">
+    <div
+    data-aos="fade"
+    data-aos-easing="linear"
+      data-aos-duration="2000"
+      class="auto-rows-1 w-full md:w-auto grid grid-cols-1 gap-4 
+      md:grid-cols-2
+      md-x:grid-cols-3 md-x:gap-8"
+      >
+      <!--ACOMPAÑAMIENTO EMOCIONAL CARD-->
+      <div class="card-container relative">
+        <a routerLink="/services/emotional-support">
+          <img
+            src="../../../assets/images/acompañamiento.jpg" alt="Foto de unas manos que representan el acompañamiento emocional"
+            class="hover-img" loading="lazy"
+          />
+          <div class="service-card">
+            <h2 id="service1-title">Acompañamiento emocional</h2>
+                <angular-editor id="service1-onlyReadText"
+                aria-labelledby="service1-title"
+          class="all-initial"
+          [(ngModel)]="homeDataStream.service1"
+          [config]="editorConfig"
+                ></angular-editor>
+          </div>
+        </a>
+      </div>
+
+      <!--CÍRCULOS DE MUJERES-->
+      <div class="card-container relative">
+        <a routerLink="/services/women-circles">
+        <img src="../../../assets/images/women.webp" class="hover-img" 
+        alt="Foto de manos de varias mujeres, representa los círculos de mujeres." 
+        loading="lazy"/>
+        <div class="service-card">
+          <h2 id="service2-title">Círculos de mujeres</h2>
+          <angular-editor id="service2-onlyReadText"
+          aria-labelledby="service2-title"
+            class="all-initial"
+            [(ngModel)]="homeDataStream['service2']"
+            [config]="editorConfig"
+          ></angular-editor>
+        </div>
+        </a>
+      </div>
+
+      <!--CURSOS Y TALLERES-->
+      <div class="card-container relative">
+        <a routerLink="/services/courses">
+        <img src="../../../assets/images/cursos.webp" class="hover-img" 
+        alt="Imagen de una planta acabada de nacer, representa el crecimiento personal obtenido con los cursos" 
+        loading="lazy"/>
+        <div class="service-card">
+          <h2 id="service3-title">Talleres y cursos</h2>
+          <angular-editor id="service3-onlyReadText" 
+          aria-labelledby="service3-title"
+            class="all-initial"
+            [(ngModel)]="homeDataStream['service3']"
+            [config]="editorConfig"
+          ></angular-editor>
+        </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="mt-10 flex justify-center">
+    <app-whatsapp-btn class="secondary"><span>PIDE CITA</span></app-whatsapp-btn>
+  </div>
+</section>
+</ng-container>
+
+<!--ARTICLES (BLOG) SECTION-->
+<section>
+  <h2 class="text-center">Blog</h2>
+
+  <ng-container *ngIf="articles$|async as articles">
+    <ng-container *ngIf="articles.length<1">
+      <div class="skeleton articles flex justify-around h-72 w-full">
+        <div class="bg-slate-100 h-full"></div>
+        <div class="bg-slate-100 h-full"></div>
+        <div class="bg-slate-100 h-full"></div>
+      </div>
+    </ng-container>
+  <div class="mt-9 md:mt-14 articles" role="list">
+      <ng-container *ngFor="let article of articles; let i = index; trackBy: trackbyId">
+        <div
+          class="bg-base-100 dark:bg-cr-dark-gray-dark shadow-xl pb-8 flex flex-col" 
+          data-aos="fade"
+          data-aos-easing="linear"
+          data-aos-duration="1000"
+          [attr.data-aos-delay]="aos(i)" 
+          role="listitem"
+        >
+            <img
+              [src]="article.imageUrl"
+              (error)="onImageError($event, i)"
+              alt="article{{ i }}"
+              class="w-full h-44 object-cover"
+            />
+          <div class="p-8 flex flex-col flex-grow" role="article" [attr.aria-labelledby]="'titleArticle' + i" [attr.aria-describedby]="'desc' + i">
+            <h3 id="titleArticle{{i}}" class="text-center">{{ article.title }}</h3>
+            <p id="desc{{i}}">{{ article.shortDescription }}</p>
+          </div>
+          <div class="text-center">
+            <a
+              class="btn secondary-btn"
+              routerLink="/blog/{{ article.slug }}"
+            >
+              Leer
+            </a>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    </ng-container>
+
+  <div class="flex justify-center mt-14">
+    <a class="btn primary-btn" routerLink="/blog">
+      Todos los artículos
+    </a>
+  </div>
+</section>

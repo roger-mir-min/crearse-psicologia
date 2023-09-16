@@ -1,0 +1,60 @@
+<h1>Creador de contenido</h1>
+
+<p class="mb-4">Bienvenida, Ximena. En esta página puedes añadir artículos o cursos. Selecciona tu opción y escribe el texto 
+  en el cuadro del editor.</p>
+  
+<p>En cuanto a las imágenes, recuerda que:</p>
+
+<ul class="mb-6">
+  <li>
+    Para evitar problemas, clica enter antes de crear una.
+  </li>
+  <li>
+    Solamente puedes modificar el tamaño de la primera imagen.
+  </li>
+  <li>
+    No se pueden amoldar al texto (no se les puede poner texto a los lados).
+  </li>
+  <li>
+    Las imágenes que subes y luego borras, solamente se borran de la base de datos cuando le das al botón "guardar". Si 
+    no quieres guardar, luego simplemente pon "No".
+  </li>
+</ul>
+
+<p class="mb-6">Las "tags" son palabras que puedes poner para definir de qué va el artículo; ayuda a los motores de búsqueda 
+  como Google a identificar tu artículo y, por lo tanto, a que aparezca con más facilidad a tus clientes potenciales.
+  Combina palabras generales ("psicología", "psicoanálisis") con palabras específicas del tema del artículo.
+</p>
+
+<p class="mb-6">La descripción corta (máximo de 200 caracteres) es la que va aparecer en la miniatura de la lista de cursos/artículos así como en 
+  la miniatura de algunas redes sociales. Además, facilitará tu aparición en los buscadores.</p>
+  
+<p class="mb-7">Para mejores resultados, escribe el título del artículo en la cajita "Título" y no directamente en el editor. Y destaca las 
+  palabras importantes con negrita.
+</p>
+
+<h2 class="mb-4">
+  Qué quieres añadir?
+</h2>
+
+<div tabindex="1">
+  <form [formGroup]="selectForm" class="mb-4">
+    <label class="me-3">
+      <input type="radio" formControlName="option" value="article"> Artículo
+    </label>
+    <label class="me-3">
+      <input type="radio" formControlName="option" value="course"> Curso
+    </label>
+    <label class="me-3">
+      <input type="radio" formControlName="option" value="women"> Círculo de mujeres
+    </label>
+    <label>
+      <input type="radio" formControlName="option" value="em-support"> Acompañamiento emocional
+    </label>
+  </form>
+</div>
+
+<ng-container><small *ngIf="isError$|async" class="text-red-500 italic mb-6">Error al guardar.</small></ng-container>
+<ng-container><small *ngIf="isSuccess$|async" class="text-green-500 italic mb-6">Guardado correctamente.</small></ng-container>
+
+<app-admin-item-form #itemForm [type]="selectedType" (submitEvent)="addItem($event)"></app-admin-item-form>

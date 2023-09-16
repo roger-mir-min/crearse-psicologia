@@ -1,0 +1,16 @@
+@import '/src/styles/buttons.scss';
+
+:host.primary a{
+    @extend .primary-btn;
+}
+
+:host.secondary a{
+    @extend .secondary-btn;
+    @apply border-0;
+}
+
+@media (prefers-color-scheme: dark) {
+    .secondary a{
+        color: rgb(15 23 42) !important;
+    }
+}

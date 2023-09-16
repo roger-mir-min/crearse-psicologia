@@ -1,0 +1,48 @@
+@import 'variables';
+
+.btn{
+    color: rgb(0,0,0) !important;
+}
+
+.primary-btn{
+    background-color: $cr-blue !important;
+    border-radius: 9999px !important;
+    font-family: 'Julius' !important;
+    color: white !important;
+    &:hover{
+        border: 1px solid $cr-blue !important;
+        color: $cr-blue !important;
+        background-color: white !important;
+    }
+}
+
+.secondary-btn{
+    border-radius: 9999px !important;
+    background-color: #8271EF !important;
+    &:hover{
+        border: 1px solid #8271EF !important;
+        background-color: white !important;
+        color: #8271EF !important;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .primary-btn{
+        background-color: rgb(126, 162, 196) !important;
+        color: rgb(15 23 42) !important;
+        &:hover{
+            background-color: rgb(29, 37, 44) !important;
+            color: white !important;
+            border: 1px solid rgb(29, 37, 44) !important;
+        }
+    }
+    .secondary-btn{
+        background-color: $cr-dark-purple !important;
+        color: rgb(15 23 42) !important;
+        &:hover{
+            background-color: $cr-dark-purple !important;
+            color: white !important;
+            border: 1px solid rgb(11, 1, 48) !important;
+        }
+    }
+}

@@ -1,0 +1,23 @@
+<div class=" p-4 md:p-8 border shadow-md rounded">
+
+        <h2>Login de administrador</h2>
+        <form [formGroup]="formLogin" (ngSubmit)="onSubmit()" class="bg-white px-8 pt-6 pb-8 mb-4">
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">Email</label>
+                <input type="text" formControlName="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-gray-700 focus:shadow-outline" required autofocus>
+                <small *ngIf="getEmail!.hasError!('required') && getEmail!.touched" class="text-red-500 italic">El correo electrónico es obligatorio.</small>
+                <small *ngIf="getEmail!.hasError!('email') && getEmail!.touched" class="text-red-500 italic">Introduce una dirección de correo válida.</small>
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">Contraseña</label>
+                <input type="password" formControlName="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                <small *ngIf="getPassword!.hasError!('required') && getPassword!.touched" class="text-red-500 italic">La contraseña es obligatoria.</small>
+
+            </div>
+                <input type="submit" value="Enviar" [disabled]="formLogin.invalid" class="standard-button">
+        </form>
+        
+        <button class="font-bold text-sm text-blue-500 hover:text-blue-800" (click)="onClick()">Login with Google</button>
+
+        <div *ngIf="errorMessage$|async as errorMessage" class="text-red-500 italic">{{errorMessage}}</div>
+</div>

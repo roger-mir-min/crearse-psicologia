@@ -1,0 +1,73 @@
+<h1>Círculos de mujeres</h1>
+
+<!--Botó d'editar (admin, no edit-mode)-->
+<ng-container *ngIf="isLoggedIn$|async">
+  <div class="mb-5">
+    <button (click)="editMode=!editMode" class="me-4 text-blue-500 hover:text-blue-700" aria-label="Cambiar entre editor y texto de lectura" aria-haspopup="true" aria-controls="editor, onlyReadText">
+      <svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Lápiz, botón para cambiar entre editor y texto de sólo lectura" width="16" height="16" fill="currentColor" class="bi bi-pencil inline" viewBox="0 0 16 16">
+        <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+      </svg>
+      Editor
+    </button>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="vm$|async as vm">
+
+  <!--INTRODUCTORY TEXT-->
+  <ng-container *ngIf="(isLoggedIn$|async) && editMode == true; else onlyReadEditor">
+    <app-admin-item-form id="editor" aria-label="editor" [type]="'text'" 
+    [initialItem]="{text: vm.secondaryArr[0].women}" 
+    (submitEvent)="modifyItem($event)" aria-hidden="false" class="block mb-5">
+  </app-admin-item-form>
+  </ng-container>
+
+
+  <ng-template #onlyReadEditor class="mb-5">
+    <angular-editor class="block mb-5 all-initial" [(ngModel)]="vm.secondaryArr[0].women" [config]="editorConfig"></angular-editor>
+  </ng-template>
+
+<!--BUSCADOR-->
+<ng-container *ngIf="vm.womenArr.length>0">
+<div class="search-results"
+      infiniteScroll
+      [infiniteScrollDistance]="1"
+      [infiniteScrollThrottle]="50"
+      (scrolled)="onScroll()" [infiniteScrollDisabled]="infScrollDisabled">
+
+  <div class="mb-6">
+    <label for="filter">Buscar: </label>
+    <input type="search" autocomplete="on" id="filter" [(ngModel)]="textQuery" (ngModelChange)="onSearch(textQuery)" placeholder=" ...">
+  </div>
+
+<!--ITEMS GRID-->
+  <div class="women-grid" role="list">
+    <ng-container *ngFor="let women of vm.womenArr; let i = index; trackBy: trackbyId">
+      <div class="bg-base-100 dark:bg-slate-500 shadow-xl pb-8 flex flex-col text-center md:tex-start" 
+      aria-label="Resumen del círculo de mujeres con posibilidad de abrirlo" role="listitem" 
+      aria-labelledby="title" aria-describedby="desc">
+        <img [src]="encode(women.imageUrl!)" class="w-full h-56 object-cover" (error)="onImageError($event, i)" alt="Círculo de mujres {{ women.title }}">
+        <div class="p-8 flex flex-col flex-grow">
+        <h2 id="title">{{women.title}}</h2>
+        <p>Tarifa: {{women.budget}}</p>
+        <p id="desc" class="line-clamp-2">{{women.shortDescription}}</p>
+        </div>
+        <div>
+        <div class="text-center">
+          <a routerLink="{{women.slug}}">Detalles del círculo</a>
+          <button *ngIf="isLoggedIn$|async" (click)="openConfirmationModal(women)" class="ms-5 danger-button">ELIMINAR CURSO</button>
+        </div>
+      </div>
+      </div>
+    </ng-container>
+  </div>
+  <span *ngIf="finished$|async" class="text-cr-blue mt-5">No hay más círculos de mujeres para mostrar</span>
+</div>
+</ng-container>
+
+</ng-container>
+
+<app-modal><span>eliminar este curso</span><button button (click)="deleteItem()">Sí</button></app-modal>
+
+
+<span *ngIf="errorOnLoad$|async" class="text-red-500 mt-5">Error al cargar los círculos de mujeres</span>

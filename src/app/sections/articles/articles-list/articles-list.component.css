@@ -1,0 +1,16 @@
+:host{
+    @apply block px-6 py-10 md:px-10 dark:bg-cr-dark-bg;
+}
+
+.articles {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    grid-auto-rows: 1fr;
+    gap: 2rem;
+}
+
+@media screen and (max-width:768px) {
+    .articles {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+}

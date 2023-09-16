@@ -1,0 +1,93 @@
+:host{
+    @apply dark:bg-[#EFEFEF];
+}
+
+h1{
+    background-size:contain;
+    background-image: url("./../../../assets/images/logo-gran.png");
+    background-repeat:no-repeat;
+    background-position-x: center;
+    // background-clip: padding-box;
+}
+
+section{
+    @apply p-6 sm:py-6 sm:px-12 md:py-9 md:px-20 dark:bg-cr-dark-bg;
+    &.info{
+        @apply dark:bg-cr-dark-gray-dark;
+    }
+}
+
+.about-img{
+    border-radius: 50%;
+}
+
+section.services{
+    // min-height: 400px;
+    vertical-align:middle;
+    background-image: url('../../../assets/images/patro.png');
+    background-repeat: repeat;
+    background-size: 70%;
+    background-position: 130% 55%;
+}
+
+
+
+.services-box {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-auto-rows: 1fr;
+    gap: 2rem;
+}
+.card-container{
+}
+
+.service-card{
+    border-radius: 20px 0 20px 20px;
+    @apply p-6 bg-cr-blue text-white text-center h-full;
+    & h2{
+        @apply text-xl sm:text-sm md:text-2xl;
+    }
+}
+
+.auto-rows-1{
+    grid-auto-rows: 1fr;
+}
+
+.hover-img{
+    @apply block w-full h-full absolute inset-0 opacity-0 hover:opacity-100;
+    object-fit: cover;
+    transition: .5s ease;
+    border-radius: 20px 0 20px 20px;
+    z-index:1;
+}
+
+
+.articles{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    grid-auto-rows: 1fr;
+    gap: 2rem;
+}
+
+@media screen and (max-width:768px) {
+    .articles{
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    header{
+        @apply bg-[#EFEFEF];
+    }
+    h1{
+        background-image:url('./../../../assets/images/logo-gran-darkkk.png');
+    }
+    .service-card{
+        @apply bg-cr-dark-gray;
+    }
+
+    section.services{
+        background-image:none;
+        @apply bg-cr-dark-gray-dark;
+    }
+}
