@@ -1,3 +1,4 @@
+import { NavigateToService } from 'src/app/services/navigate-to.service';
 import { ChangeDetectionStrategy, Component, OnInit, ViewChild, HostListener, ElementRef } from '@angular/core';
 import { Router, RouterLink, RouterModule } from '@angular/router';
 import { WHATSAPP_COMPLETE_URL } from 'src/app/models/whatsapp_data';
@@ -22,14 +23,14 @@ export class HeaderComponent implements OnInit {
   whatsapp_url = WHATSAPP_COMPLETE_URL;
   isLoggedIn$ = this.authService.isLoggedIn$;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private navTo: NavigateToService) { }
 
   ngOnInit() {
   }
 
   logout() {
     this.authService.logout().then(res => {
-      this.router.navigate(['admin/login']);
+      this.navTo.navigateToLogin();
     }).catch(error => {
       alert('Error al salir: ' + error);
     })
