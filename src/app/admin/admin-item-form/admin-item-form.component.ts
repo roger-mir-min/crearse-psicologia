@@ -186,9 +186,7 @@ resizeImgContainer(text: string): string {
   submit(imgUrl: string | undefined) {
     this.getSize();
     let item = { ...this.itemForm.value } as Item;
-    if (this._type !== 'text') {
-      item.text = this.resizeImgContainer(item.text);
-    }
+    item.text = this.resizeImgContainer(item.text);
     item.createdAt = this._initialItem.createdAt;
     item.imageUrl = imgUrl ?? defaultImg;
     item.imageSizes = this.imgSizes;
@@ -294,7 +292,6 @@ uploadImageByAngularEditor(file: File): Observable<HttpEvent<UploadResponse>> {
     } as HttpResponse<UploadResponse>)),
     tap(res => {
       setTimeout(() => {
-        if (this._type !== 'text') {
           const imageUrl = res.body?.imageUrl || '';
           const imgString = `<img src="${imageUrl}" alt="Imagen del ítem de contenido">`;
           const targetString = imgString.replace('media&token', 'media&amp;token');
@@ -307,7 +304,6 @@ uploadImageByAngularEditor(file: File): Observable<HttpEvent<UploadResponse>> {
             this.itemForm.patchValue({ text: this.itemForm.value.text.replace(combinedRegex, divWithClasses) });
           } else {
           }
-        }
       });
 
 
