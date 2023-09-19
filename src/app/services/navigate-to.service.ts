@@ -10,7 +10,7 @@ export class NavigateToService {
   }
   
   navigateToLogin() {
-    this.router.navigate(['admin/login']);
+    this.router.navigate(['admin/9194log9194']);
   }
 
 }
