@@ -60,17 +60,17 @@ export class LoginComponent implements OnInit {
       });
   }
 
-  onClick() {
-    this.loaderService.showAndHideSpinner();
-    this.authService.loginWithGoogle().then(response => {
-      this.errorMessageSubj.next(undefined);
-      this.authService.isLoggedInSubj.next(true);
-      this.router.navigate(['admin/add-content']);
-      })
-      .catch(error => {
-        this.errorMessageSubj.next(this.authService.handleAuthError(error));
-      });
-  }
+  // onClick() {
+  //   this.loaderService.showAndHideSpinner();
+  //   this.authService.loginWithGoogle().then(response => {
+  //     this.errorMessageSubj.next(undefined);
+  //     this.authService.isLoggedInSubj.next(true);
+  //     this.router.navigate(['admin/add-content']);
+  //     })
+  //     .catch(error => {
+  //       this.errorMessageSubj.next(this.authService.handleAuthError(error));
+  //     });
+  // }
 
     ngOnDestroy() {
     this.meta.removeTag("name='robots'");

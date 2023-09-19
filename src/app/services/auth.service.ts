@@ -34,17 +34,17 @@ constructor(private auth: Auth, private router: Router) { }
     return createUserWithEmailAndPassword(this.auth, email, password);
   }
 
-  registerWithGoogle() {
-    const provider = new GoogleAuthProvider();
-    return signInWithPopup(this.auth, provider);
-  }
+  // registerWithGoogle() {
+  //   const provider = new GoogleAuthProvider();
+  //   return signInWithPopup(this.auth, provider);
+  // }
 
   login({ email, password }: any) {
     return signInWithEmailAndPassword(this.auth, email, password);
   }
 
-loginWithGoogle() {
-  return signInWithPopup(this.auth, new GoogleAuthProvider())
+// loginWithGoogle() {
+//   return signInWithPopup(this.auth, new GoogleAuthProvider())
     // .then((result) => {
     //     if (result.user?.email === 'crearsearteterapia@gmail.com') {
     //         console.log('Admin logged in');
@@ -55,7 +55,7 @@ loginWithGoogle() {
     //         throw new Error('Unauthorized access');
     //     }
     // });
-}
+// }
 
 
   logout() {

@@ -17,7 +17,7 @@
                 <input type="submit" value="Enviar" [disabled]="formLogin.invalid" class="standard-button">
         </form>
         
-        <button class="font-bold text-sm text-blue-500 hover:text-blue-800" (click)="onClick()">Login with Google</button>
+        <!-- <button class="font-bold text-sm text-blue-500 hover:text-blue-800" (click)="onClick()">Login with Google</button> -->
 
         <div *ngIf="errorMessage$|async as errorMessage" class="text-red-500 italic">{{errorMessage}}</div>
 </div>
