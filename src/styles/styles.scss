@@ -109,7 +109,7 @@ angular-editor div:not(app-admin-item-form div):has(img).resize{
     resize:none;
 }
 
-app-about angular-editor div.resize:has(img){
+app-about angular-editor div.resize{
     @apply hidden md:inline md:float-right ms-5;
     width: 33% !important;
 }
