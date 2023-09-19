@@ -58,18 +58,18 @@ export class RegisterComponent implements OnInit {
       });
   }
 
-  signupWithGoogle() {
-    this.loaderService.showAndHideSpinner();
-    this.authService.registerWithGoogle().then(response => {
-      this.errorMessageSubj.next(undefined);
-      this.authService.isLoggedInSubj.next(true);
-      this.router.navigate(['admin/add-content']);
-    })
-      .catch(error => {
-        this.errorMessageSubj.next(this.authService.handleAuthError(error));
-        console.error(error);
-      });
-  }
+  // signupWithGoogle() {
+  //   this.loaderService.showAndHideSpinner();
+  //   this.authService.registerWithGoogle().then(response => {
+  //     this.errorMessageSubj.next(undefined);
+  //     this.authService.isLoggedInSubj.next(true);
+  //     this.router.navigate(['admin/add-content']);
+  //   })
+  //     .catch(error => {
+  //       this.errorMessageSubj.next(this.authService.handleAuthError(error));
+  //       console.error(error);
+  //     });
+  // }
 
   navigateToLogin() {
     this.router.navigate(['admin/login']);
