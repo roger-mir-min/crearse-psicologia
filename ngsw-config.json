@@ -28,31 +28,5 @@
         ]
       }
     }
-  ],
-  "dataGroups": [
-  {
-    "name": "storage-api",
-    "urls": [
-      "https://firebasestorage.googleapis.com/v0/b/crearse-a80cc.appspot.com"
-    ],
-    "cacheConfig": {
-      "strategy": "freshness",
-      "maxSize": 100,
-      "maxAge": "1h",
-      "timeout": "10s"
-    }
-  },
-  {
-      "name": "firestore-api",
-      "urls": [
-        "https://firestore.googleapis.com/v1/projects/crearse-a80cc.appspot.com/databases/(default)/documents/**"
-      ],
-      "cacheConfig": {
-        "strategy": "freshness",
-        "maxSize": 100,
-        "maxAge": "1h",
-        "timeout": "10s"
-      }
-    }
-]
+  ]
 }
