@@ -124,11 +124,10 @@ export class HomeComponent implements OnInit, CanComponentDeactivate {
     this.homeData[this.selectedEditor!] = aboutFromChild.text;
     this.homeService.modifyItem(this.homeData).then(res => {
       this.homeDataSubj.next(this.homeData);
-      console.log(res);
       setTimeout(() => { this.loaderService.hideSpinner() });
       alert('Modificación realizada con éxito.');
     }).catch(e => {
-      console.log('Error when trying to modify object secondary: ' + e);
+      console.error('Error when trying to modify object secondary: ' + e);
       setTimeout(() => { this.loaderService.hideSpinner() });
       alert('Error al intentar modificar el texto.');
     }

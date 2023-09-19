@@ -86,12 +86,11 @@ export class TermsComponent implements OnInit, CanComponentDeactivate {
     if (currentSecondary && currentSecondary.length > 0) {
       let updatedItem = { ...currentSecondary[0], about: aboutFromChild.text };
       this.secondaryService.modifyItem(updatedItem).then(res => {
-        console.log(res);
         this.modificationIsFinishedSubj.next(true);
         this.isErrorSubj.next(false);
         this.reloadSecondary$();
       }).catch(error => {
-        console.log('Error when trying to modify object secondary: ' + error);
+        console.error('Error when trying to modify object secondary: ' + error);
         this.isErrorSubj.next(true);
         this.modificationIsFinishedSubj.next(false);
       });

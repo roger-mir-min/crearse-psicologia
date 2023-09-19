@@ -19,7 +19,7 @@ export class RegisterComponent implements OnInit {
 
   formReg: FormGroup;
   errorMessageSubj = new BehaviorSubject<string|undefined>(undefined);
-  errorMessage$ = this.errorMessageSubj.asObservable().pipe(tap(err=>{console.log(err)}));
+  errorMessage$ = this.errorMessageSubj.asObservable().pipe(tap(err=>{console.error(err)}));
 
   constructor(
     private authService: AuthService,
@@ -48,26 +48,26 @@ export class RegisterComponent implements OnInit {
     this.loaderService.showSpinner();
     this.authService.register(this.formReg.value).then(response => {
       this.loaderService.hideSpinner();
-      console.log(response);
       this.errorMessageSubj.next(undefined);
       this.router.navigate(['admin/login']);
       })
       .catch(error => {
         this.loaderService.hideSpinner();
         this.errorMessageSubj.next(this.authService.handleAuthError(error));
+        console.error(error);
       });
   }
 
   signupWithGoogle() {
     this.loaderService.showAndHideSpinner();
     this.authService.registerWithGoogle().then(response => {
-      console.log(response);
       this.errorMessageSubj.next(undefined);
       this.authService.isLoggedInSubj.next(true);
       this.router.navigate(['admin/add-content']);
     })
       .catch(error => {
         this.errorMessageSubj.next(this.authService.handleAuthError(error));
+        console.error(error);
       });
   }
 

@@ -52,7 +52,6 @@ export class WomenCircleComponent implements OnInit, CanComponentDeactivate {
   @Input() set slug(slug: string) {
     const parts = slug.split('-');
     const id = parts[parts.length - 1].trim();
-    console.log("l'id és : " + id);
     this.womenService.getItem(id).then(res => {
       this.editorContent= res.text;
       this.womenSubj.next({ id: id, ...res });
@@ -108,14 +107,12 @@ export class WomenCircleComponent implements OnInit, CanComponentDeactivate {
     setTimeout(() => { this.loaderService.showSpinner() });
     this.women$.pipe(takeUntilDestroyed(this.destroy)).subscribe(em => 
       this.womenService.deleteItem(em.id!).then(res => {
-        console.log(res);
-        console.log('delete emotional support item item with id ' + res.id!);
         this.modal.close();
         this.isErrorSubj.next(true);
         this.router.navigate(['women-circles']);
         setTimeout(() => { this.loaderService.hideSpinner() });
       }).catch(e => {
-        console.log('Error when trying to delete object: ' + e);
+        console.error('Error when trying to delete object: ' + e);
         this.isErrorSubj.next(true);
         this.modal.close();
         alert('Error al borrar el ítem de círculos de mujeres.');
@@ -131,12 +128,10 @@ modifyItem(womenFromChild: Women) {
   setTimeout(() => { this.loaderService.showSpinner() });
   this.women$.pipe(takeUntilDestroyed(this.destroy)).subscribe(em => {
     this.womenService.modifyItem({ ...womenFromChild, id: em.id }).then(res => {
-      console.log(res);
-      console.log('modify women-circle item with id ' + em.id);
       setTimeout(() => { this.loaderService.hideSpinner() });
       this.modificationIsFinishedSubj.next(true);
     }).catch(e => {
-      console.log('Error when trying to modify object: ' + e);
+      console.error('Error when trying to modify object: ' + e);
       setTimeout(() => { this.loaderService.hideSpinner() });
       this.isErrorSubj.next(true);
     }

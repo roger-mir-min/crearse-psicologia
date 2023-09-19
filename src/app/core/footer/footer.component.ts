@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { redirectToWhatsapp } from '../utilities/redirect-to-whatsapp';
 
 @Component({
   selector: 'app-footer',
@@ -13,10 +12,6 @@ export class FooterComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-  }
-
-  redirectToWhatsapp() {
-    redirectToWhatsapp();
   }
 
 }

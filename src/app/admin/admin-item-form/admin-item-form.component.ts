@@ -193,7 +193,6 @@ resizeImgContainer(text: string): string {
     item.text = this.resizeImgContainer(item.text);
     this.submitted = true;
     this.submitEvent.emit(item);
-    console.log(item);
     this._initialItem = { ...this.itemForm.value, text:item.text };
     this.initializeForm();
     this.modal.close();
@@ -262,7 +261,7 @@ resizeImgContainer(text: string): string {
               this.imageService.deleteImg(img.name).then(res => {
                 console.log(res);
               }).catch(error => {
-                console.log(error);
+                console.error(error);
               });
               //delete from imgUrlArray
             this.imagesUpdatedArray.splice(i, 1);
@@ -278,7 +277,6 @@ uploadImageByAngularEditor(file: File): Observable<HttpEvent<UploadResponse>> {
     tap(res => {
       //we store only the url of the first image, which will be displayed in the card of the item
       this.imagesUpdatedArray.push({ name: file.name, url: res });
-      console.log(this.codec.encodeValue(this.imagesUpdatedArray[0].url));
     }), 
     switchMap(res => of({
       body: {imageUrl: res},
@@ -332,7 +330,7 @@ unloadNotification($event: any): void {
           this.imageService.deleteImg(img.name).then(res => {
             console.log(res);
           }).catch(error => {
-            console.log(error);
+            console.error(error);
             alert('Error al eliminar el archivo');
           });
         })

@@ -70,7 +70,6 @@ export class ArticlesListComponent implements OnInit {
         this.articlesService.getFilteredCollection(this.textQuery).then(res => { 
           this.articles = [...res];
           this.articlesSubj.next(res);
-          console.log('articles array updated: ' + res);
         })
       });
   }
@@ -111,11 +110,9 @@ export class ArticlesListComponent implements OnInit {
       setTimeout(() => { this.loaderService.hideSpinner() });
       if (res.length == 0) {
         this.finishedSubj.next(true);
-        console.log('No more articles to load');
       } else {
         this.articles = [...this.articles, ...res];
         this.articlesSubj.next(this.articles);
-        console.log(res);
       }
       this.firstLoadIsDone = true;
       this.infScrollDisabled = false;
@@ -132,8 +129,6 @@ export class ArticlesListComponent implements OnInit {
   deleteItem() {
     setTimeout(() => { this.loaderService.showSpinner() });
     this.articlesService.deleteItem(this.selectedArticle!.id!).then(res => {
-      console.log(res);
-      console.log('delete course with id ' + this.selectedArticle!.id!);
       this.articles = this.articles.filter(article => article.id !== this.selectedArticle!.id!);
       this.articlesSubj.next(this.articles);
       this.selectedArticle = undefined;
@@ -154,7 +149,6 @@ export class ArticlesListComponent implements OnInit {
   }
 
   onScroll() {
-    console.log('scroll');
     if (this.textQuery == '') {
       this.infScrollDisabled = true;
       if (this.finishedSubj.value == false && this.firstLoadIsDone == true) {
@@ -164,7 +158,6 @@ export class ArticlesListComponent implements OnInit {
   }
 
   onSearch(query: string) {
-    console.log('search by: ' + query);
     if (query != '') {
       this.textQueryChanged.next(query);
     } else {

@@ -82,8 +82,8 @@ export class WomenCircleListComponent implements OnInit {
         this.WomenService.getFilteredCollection(this.textQuery).then(res => {
           this.womenArr = [...res];
           this.womenSubj.next(this.womenArr);
-          console.log('women-circles array updated: ' + res);
-        });
+          console.error('women-circles array updated: ' + res);
+        }).catch(e => { console.error(e)});
       });
       this.vm$ = combineLatest(([this.women$, this.secondary$])).pipe(map(([w, s]) => ({
         womenArr: w,
@@ -129,11 +129,9 @@ export class WomenCircleListComponent implements OnInit {
       setTimeout(() => { this.loaderService.hideSpinner() });
       if (res.length == 0) {
         this.finishedSubj.next(true);
-        console.log('No more articles to load');
       } else {
         this.womenArr = [...this.womenArr, ...res];
         this.womenSubj.next(this.womenArr);
-        console.log(res);
       }
       this.firstLoadIsDone = true;
       this.infScrollDisabled = false;
@@ -152,11 +150,10 @@ export class WomenCircleListComponent implements OnInit {
     if (currentSecondary && currentSecondary.length > 0) {
       let updatedItem = { ...currentSecondary[0], women: womenInfoFromChild.text };
       this.secondaryService.modifyItem(updatedItem).then(res => {
-        console.log(res);
         this.secondarySubj.next(res);
         alert('Texto modificado con éxito.');
       }).catch(error => {
-        console.log('Error when trying to modify object secondary: ' + error);
+        console.error('Error when trying to modify object secondary: ' + error);
         setTimeout(() => { this.loaderService.hideSpinner() });
         alert('Error al modificar el texto.');
       });
@@ -167,8 +164,6 @@ export class WomenCircleListComponent implements OnInit {
   deleteItem() {
     setTimeout(() => { this.loaderService.showSpinner() });
     this.WomenService.deleteItem(this.selectedWomen!.id!).then(res => {
-      console.log(res);
-      console.log('delete women-circles item with id ' + this.selectedWomen!.id!);
       this.womenArr = this.womenArr.filter(wm => wm.id !== this.selectedWomen!.id!);
       this.womenSubj.next(this.womenArr);
       this.selectedWomen = undefined;
@@ -190,7 +185,6 @@ export class WomenCircleListComponent implements OnInit {
   }
 
   onScroll() {
-    console.log('scroll');
     if (this.textQuery == '') {
       this.infScrollDisabled = true;
       if (this.finishedSubj.value == false && this.firstLoadIsDone == true) {
@@ -200,7 +194,6 @@ export class WomenCircleListComponent implements OnInit {
   }
 
   onSearch(query: string) {
-    console.log('search by: ' + query);
     if (query != '') {
       this.textQueryChanged.next(query);
     } else {

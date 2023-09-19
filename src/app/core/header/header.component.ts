@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit, ViewChild, HostListener, ElementRef } from '@angular/core';
 import { Router, RouterLink, RouterModule } from '@angular/router';
-import { redirectToWhatsapp } from '../utilities/redirect-to-whatsapp';
 import { WHATSAPP_COMPLETE_URL } from 'src/app/models/whatsapp_data';
 import { AuthService } from 'src/app/services/auth.service';
 import { AsyncPipe, NgClass, NgIf } from '@angular/common';
@@ -30,7 +29,6 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     this.authService.logout().then(res => {
-      console.log(res);
       this.router.navigate(['admin/login']);
     }).catch(error => {
       alert('Error al salir: ' + error);

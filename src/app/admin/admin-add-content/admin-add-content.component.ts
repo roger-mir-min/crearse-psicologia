@@ -91,7 +91,6 @@ export class AdminAddContentComponent implements OnInit, CanComponentDeactivate 
 
   async addArticle(article: Article) {
     await this.articlesService.addItem(article).then((res: any) => {
-      console.log(res);
       setTimeout(() => { this.loaderService.hideSpinner() });
       this.isSuccessSubj.next(true);    
       location.reload();
@@ -104,7 +103,6 @@ export class AdminAddContentComponent implements OnInit, CanComponentDeactivate 
   
   async addCourse(course: Course) {
     await this.coursesService.addItem(course).then((res: any) => {
-      console.log(res);
       setTimeout(() => { this.loaderService.hideSpinner() });
       this.isSuccessSubj.next(true); 
       location.reload();
@@ -117,7 +115,6 @@ export class AdminAddContentComponent implements OnInit, CanComponentDeactivate 
 
   async addWomen(wm: Women) {
     await this.womenService.addItem(wm).then((res: any) => {
-      console.log(res);
       setTimeout(() => { this.loaderService.hideSpinner() });
       this.isSuccessSubj.next(true); 
       location.reload();
@@ -130,7 +127,6 @@ export class AdminAddContentComponent implements OnInit, CanComponentDeactivate 
 
   async addEmSupport(em: EmSupport) {
     await this.emSupportService.addItem(em).then((res: any) => {
-      console.log(res);
       setTimeout(() => { this.loaderService.hideSpinner() });
       this.isSuccessSubj.next(true); 
       location.reload();

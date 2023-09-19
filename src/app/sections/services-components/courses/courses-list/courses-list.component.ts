@@ -83,7 +83,6 @@ export class CoursesListComponent implements OnInit {
         this.coursesService.getFilteredCollection(this.textQuery).then(res => { 
           this.courses = [...res];
           this.coursesSubj.next(this.courses);
-          console.log('courses array updated: ' + res);
         })
       });
       this.vm$ = combineLatest(([this.courses$, this.secondary$])).pipe(map(([c, s]) => ({
@@ -130,11 +129,9 @@ export class CoursesListComponent implements OnInit {
       setTimeout(() => { this.loaderService.hideSpinner() });
       if (res.length == 0) {
         this.finishedSubj.next(true);
-        console.log('No more courses to load');
       } else {
         this.courses = [...this.courses, ...res];
         this.coursesSubj.next(this.courses);
-        console.log(res);
       }
       this.firstLoadIsDone = true;
       this.infScrollDisabled = false;
@@ -153,12 +150,11 @@ export class CoursesListComponent implements OnInit {
     if (currentSecondary && currentSecondary.length > 0) {
       let updatedItem = { ...currentSecondary[0], courses: coursesInfoFromChild.text };
       this.secondaryService.modifyItem(updatedItem).then(res => {
-        console.log(res);
         this.modificationIsFinishedSubj.next(true);
         this.secondarySubj.next(res);
         alert('Modificación realizada con éxito');
       }).catch(error => {
-        console.log('Error when trying to modify object secondary: ' + error);
+        console.error('Error when trying to modify object secondary: ' + error);
         this.modificationIsFinishedSubj.next(false);
         setTimeout(() => { this.loaderService.hideSpinner() });
         alert('Error al intentar modificar.')
@@ -170,8 +166,6 @@ export class CoursesListComponent implements OnInit {
   deleteItem() {
     setTimeout(() => { this.loaderService.showSpinner() });
     this.coursesService.deleteItem(this.selectedCourse!.id!).then(res => {
-      console.log(res);
-      console.log('delete course with id ' + this.selectedCourse!.id!);
       this.courses = this.courses.filter(course => course.id !== this.selectedCourse!.id!);
       this.coursesSubj.next(this.courses);
       this.selectedCourse = undefined;
@@ -193,7 +187,6 @@ export class CoursesListComponent implements OnInit {
   }
 
   onScroll() {
-    console.log('scroll');
     if (this.textQuery == '') {
       this.infScrollDisabled = true;
       if (this.finishedSubj.value == false && this.firstLoadIsDone == true) {
@@ -203,7 +196,6 @@ export class CoursesListComponent implements OnInit {
   }
 
   onSearch(query: string) {
-    console.log('search by: ' + query);
     if (query != '') {
       this.textQueryChanged.next(query);
     } else {

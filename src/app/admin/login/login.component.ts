@@ -49,7 +49,6 @@ export class LoginComponent implements OnInit {
     this.loaderService.showSpinner();
     this.authService.login(this.formLogin.value).then(response => {
       this.loaderService.hideSpinner();
-      console.log(response);
       this.errorMessageSubj.next(undefined);
       this.authService.isLoggedInSubj.next(true);
       this.router.navigate(['admin/add-content']);
@@ -57,13 +56,13 @@ export class LoginComponent implements OnInit {
       .catch(error => {
         this.loaderService.hideSpinner();
         this.errorMessageSubj.next(this.authService.handleAuthError(error));
+        console.error(error);
       });
   }
 
   onClick() {
     this.loaderService.showAndHideSpinner();
     this.authService.loginWithGoogle().then(response => {
-      console.log(response);
       this.errorMessageSubj.next(undefined);
       this.authService.isLoggedInSubj.next(true);
       this.router.navigate(['admin/add-content']);

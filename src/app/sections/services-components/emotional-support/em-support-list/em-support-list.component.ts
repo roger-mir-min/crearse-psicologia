@@ -82,7 +82,6 @@ export class EmSupportListComponent implements OnInit {
         this.emSupportService.getFilteredCollection(this.textQuery).then(res => { 
           this.emSupportArr = [...res];
           this.emSupportSubj.next(this.emSupportArr);
-          console.log('em-support array updated: ' + res);
         })
       });
       this.vm$ = combineLatest(([this.emSupport$, this.secondary$])).pipe(map(([c, s]) => ({
@@ -130,11 +129,9 @@ export class EmSupportListComponent implements OnInit {
       setTimeout(() => { this.loaderService.hideSpinner() });
       if (res.length == 0) {
         this.finishedSubj.next(true);
-        console.log('No more emotional-support items to load');
       } else {
         this.emSupportArr = [...this.emSupportArr, ...res];
         this.emSupportSubj.next(this.emSupportArr);
-        console.log(res);
       }
       this.firstLoadIsDone = true;
       this.infScrollDisabled = false;
@@ -153,11 +150,10 @@ export class EmSupportListComponent implements OnInit {
     if (currentSecondary && currentSecondary.length > 0) {
       let updatedItem = { ...currentSecondary[0], emSupport: emInfoFromChild.text };
       this.secondaryService.modifyItem(updatedItem).then(res => {
-        console.log(res);
         this.secondarySubj.next(res);
         alert('Texto modificado con éxito.');
       }).catch(error => {
-        console.log('Error when trying to modify object secondary: ' + error);
+        console.error('Error when trying to modify object secondary: ' + error);
         setTimeout(() => { this.loaderService.hideSpinner() });
         alert('Error al modificar el texto.');
       });
@@ -168,8 +164,6 @@ export class EmSupportListComponent implements OnInit {
   deleteItem() {
     setTimeout(() => { this.loaderService.showSpinner() });
     this.emSupportService.deleteItem(this.selectedEmSupport!.id!).then(res => {
-      console.log(res);
-      console.log('delete em-support item with id ' + this.selectedEmSupport!.id!);
       this.emSupportArr = this.emSupportArr.filter(em => em.id !== this.selectedEmSupport!.id!);
       this.emSupportSubj.next(this.emSupportArr);
       this.selectedEmSupport = undefined;
@@ -177,7 +171,6 @@ export class EmSupportListComponent implements OnInit {
       setTimeout(() => { this.loaderService.hideSpinner() });
       alert('Objeto borrado con éxito.');
     }).catch(e => {
-      console.error(e);
       this.selectedEmSupport = undefined;
       alert('Error al borrar el curso.');
       this.modal.close();
@@ -191,7 +184,6 @@ export class EmSupportListComponent implements OnInit {
   }
 
   onScroll() {
-    console.log('scroll');
     if (this.textQuery == '') {
       this.infScrollDisabled = true;
       if (this.finishedSubj.value == false && this.firstLoadIsDone == true) {
@@ -201,7 +193,6 @@ export class EmSupportListComponent implements OnInit {
   }
 
   onSearch(query: string) {
-    console.log('search by: ' + query);
     if (query != '') {
       this.textQueryChanged.next(query);
     } else {

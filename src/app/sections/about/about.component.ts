@@ -88,13 +88,12 @@ export class AboutComponent implements OnInit, CanComponentDeactivate {
       setTimeout(() => { this.loaderService.showSpinner() });
       let updatedItem = { ...currentSecondary[0], about: aboutFromChild.text };
       this.secondaryService.modifyItem(updatedItem).then(res => {
-        console.log(res);
         setTimeout(() => { this.loaderService.hideSpinner() });
         this.modificationIsFinishedSubj.next(true);
         this.isErrorSubj.next(false);
         this.reloadSecondary$();
       }).catch(error => {
-        console.log('Error when trying to modify object secondary: ' + error);
+        console.error('Error when trying to modify object secondary: ' + error);
         this.isErrorSubj.next(true);
         setTimeout(() => { this.loaderService.hideSpinner() });
         this.modificationIsFinishedSubj.next(false);

@@ -52,7 +52,6 @@ export class ArticleComponent implements OnInit, CanComponentDeactivate {
   @Input() set slug(slug: string) {
     const parts = slug.split('-');
     const id = parts[parts.length - 1].trim();
-    console.log("l'id és : " + id);
     this.articlesService.getItem(id).then(res => {
       this.editorContent= res.text;
       this.articleSubj.next({ id: id, ...res });
@@ -127,14 +126,12 @@ export class ArticleComponent implements OnInit, CanComponentDeactivate {
     setTimeout(() => { this.loaderService.showSpinner() });
     this.article$.pipe(takeUntilDestroyed(this.destroy)).subscribe(em => 
       this.articlesService.deleteItem(em.id!).then(res => {
-        console.log(res);
-        console.log('delete article with id ' + res.id!);
         this.modal.close();
         this.isErrorSubj.next(true);
         this.router.navigate(['blog']);
         setTimeout(() => { this.loaderService.hideSpinner() });
       }).catch(e => {
-        console.log('Error when trying to delete object: ' + e);
+        console.error('Error when trying to delete object: ' + e);
         this.isErrorSubj.next(true);
         this.modal.close();
         alert('Error al borrar el artículo.');
@@ -150,12 +147,10 @@ modifyItem(articleFromChild: Article) {
   setTimeout(() => { this.loaderService.showSpinner() });
   this.article$.pipe(takeUntilDestroyed(this.destroy)).subscribe(em => {
     this.articlesService.modifyItem({ ...articleFromChild, id: em.id }).then(res => {
-      console.log(res);
-      console.log('modify article with id ' + em.id);
       setTimeout(() => { this.loaderService.hideSpinner() });
       this.modificationIsFinishedSubj.next(true);
     }).catch(e => {
-      console.log('Error when trying to modify object: ' + e);
+      console.error('Error when trying to modify object: ' + e);
       this.isErrorSubj.next(true);
       setTimeout(() => { this.loaderService.hideSpinner() });
     }

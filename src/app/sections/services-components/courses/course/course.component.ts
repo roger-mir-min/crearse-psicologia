@@ -52,7 +52,6 @@ export class CourseComponent implements OnInit, CanComponentDeactivate {
   @Input() set slug(slug: string) {
     const parts = slug.split('-');
     const id = parts[parts.length - 1].trim();
-    console.log("l'id és : " + id);
     this.coursesService.getItem(id).then(res => {
       this.editorContent= res.text;
       this.courseSubj.next({ id: id, ...res });
@@ -109,14 +108,12 @@ export class CourseComponent implements OnInit, CanComponentDeactivate {
     setTimeout(() => { this.loaderService.showSpinner() });
     this.course$.pipe(takeUntilDestroyed(this.destroy)).subscribe(course => 
       this.coursesService.deleteItem(course.id!).then(res => {
-        console.log(res);
-        console.log('delete course with id ' + res.id!);
         this.modal.close();
         this.isErrorSubj.next(true);
         this.router.navigate(['courses']);
         setTimeout(() => { this.loaderService.hideSpinner() });
       }).catch(e => {
-        console.log('Error when trying to delete object: ' + e);
+        console.error('Error when trying to delete object: ' + e);
         this.isErrorSubj.next(true);
         this.modal.close();
         alert('Error al borrar el curso.');
@@ -132,12 +129,10 @@ modifyItem(courseFromChild: Course) {
   setTimeout(() => { this.loaderService.showSpinner() });
   this.course$.pipe(takeUntilDestroyed(this.destroy)).subscribe(course => {
     this.coursesService.modifyItem({ ...courseFromChild, id: course.id }).then(res => {
-      console.log(res);
-      console.log('modify course with id ' + course.id);
       setTimeout(() => { this.loaderService.hideSpinner() });
       this.modificationIsFinishedSubj.next(true);
     }).catch(e => {
-      console.log('Error when trying to modify object: ' + e);
+      console.error('Error when trying to modify object: ' + e);
       setTimeout(() => { this.loaderService.hideSpinner() });
       this.isErrorSubj.next(true);
     }
