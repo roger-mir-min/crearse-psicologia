@@ -22,7 +22,7 @@ module.exports = {
         'cr-blue': '#3C7CAA',
         'cr-blue2': '#9BC1DD',
         'cr-blue3': '#396888',
-        'cr-purple': '#8E7EF1',
+        'cr-purple': '#ab9eff',
         'cr-dark-gray': 'rgb(63,63,63)',
         'cr-dark-gray-dark': 'rgb(40, 40, 40)',
         'cr-dark-bg': 'rgb(18, 18, 18)',

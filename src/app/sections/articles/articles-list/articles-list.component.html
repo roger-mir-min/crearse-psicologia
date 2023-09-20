@@ -17,8 +17,8 @@
           <div aria-label="Resumen de artículo con posibilidad de abrirlo" role="listitem" [attr.aria-labelledby]="'articleTitle' + i" [attr.aria-describedby]="'desc'+i" class="bg-base-100 dark:bg-cr-dark-gray-dark shadow-xl pb-8 flex flex-col">
             <img [src]="encode(article.imageUrl!)" class="w-full h-56 object-cover" (error)="onImageError($event, i)" alt="Imagen del artículo {{ i }}">
             <div role="article" class="p-8 flex flex-col flex-grow">
-              <h2 id="title{{i}}">{{article.title}}</h2>
-              <p class="text-cr-blue3/75">{{article.createdAt!*1000 | date:'shortDate'}}</p>
+              <h2 class="text-lg font-bold" id="title{{i}}">{{article.title}}</h2>
+              <p class="text-base text-cr-blue3/75">{{article.createdAt!*1000 | date:'shortDate'}}</p>
               <p id="desc{{i}}">Tiempo de lectura: {{article.duration}} min.</p>
               <p>{{article.shortDescription}}</p>
             </div>

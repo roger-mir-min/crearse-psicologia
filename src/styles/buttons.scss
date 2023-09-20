@@ -18,9 +18,9 @@
 
 .secondary-btn{
     border-radius: 9999px !important;
-    background-color: #8271EF !important;
+    background-color: $cr-purple !important;
     &:hover{
-        border: 1px solid #8271EF !important;
+        border: 1px solid $cr-purple !important;
         background-color: white !important;
         color: #8271EF !important;
     }
@@ -37,10 +37,10 @@
         }
     }
     .secondary-btn{
-        background-color: $cr-dark-purple !important;
+        background-color: $cr-purple !important;
         color: rgb(15 23 42) !important;
         &:hover{
-            background-color: $cr-dark-purple !important;
+            background-color: $cr-purple !important;
             color: white !important;
             border: 1px solid rgb(11, 1, 48) !important;
         }
