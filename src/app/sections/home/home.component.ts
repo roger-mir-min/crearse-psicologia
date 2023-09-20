@@ -1,4 +1,4 @@
-import { AsyncPipe, NgClass, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe, DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { BehaviorSubject, Observable, combineLatest, from, map } from 'rxjs';
@@ -24,7 +24,7 @@ import { Meta, Title } from '@angular/platform-browser';
   selector: 'app-home',
   standalone: true,
   imports: [RouterModule, WhatsappBtnComponent, NgFor, NgIf, AsyncPipe, NgClass, AngularEditorModule, FormsModule,
-  AdminItemFormComponent],
+  AdminItemFormComponent, DatePipe],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

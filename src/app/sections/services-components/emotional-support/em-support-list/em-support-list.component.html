@@ -33,7 +33,7 @@
       [infiniteScrollThrottle]="50"
       (scrolled)="onScroll()" [infiniteScrollDisabled]="infScrollDisabled">
 
-  <div class="mb-6">
+  <div class="my-6">
     <label for="filter">Buscar: </label>
     <input type="search" autcomplete="on" id="filter" [(ngModel)]="textQuery" (ngModelChange)="onSearch(textQuery)" placeholder=" ...">
   </div>
