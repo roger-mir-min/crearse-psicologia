@@ -115,7 +115,7 @@ app-about angular-editor div.resize{
 }
 
 @media (prefers-color-scheme: dark) {
-    .angular-editor-textarea:not(app-admin-item-form  .angular-editor-textarea) {
+    .angular-editor-textarea:not(app-admin-item-form  .angular-editor-textarea) *{
         color: rgb(255 255 255) !important;
     }
 }

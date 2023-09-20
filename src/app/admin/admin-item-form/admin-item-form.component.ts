@@ -290,27 +290,38 @@ uploadImageByAngularEditor(file: File): Observable<HttpEvent<UploadResponse>> {
     } as HttpResponse<UploadResponse>)),
     tap(res => {
       setTimeout(() => {
-          const imageUrl = res.body?.imageUrl || '';
+        const imageUrl = res.body?.imageUrl || '';
+        
           const imgString = `<img src="${imageUrl}" alt="Imagen del ítem de contenido">`;
-          const targetString = imgString.replace('media&token', 'media&amp;token');
-
+          const replacementImgString = imgString.replace('media&token', 'media&amp;token');
+        
+          const imgStringWithoutAlt = `<img src="${imageUrl}">`;
+          const targetImgString = imgStringWithoutAlt.replace('media&token', 'media&amp;token');
+          
+          const divWithClasses = `<div class="resize overflow-auto mx-auto">${replacementImgString}</div>`;
+        
           const combinedRegex = new RegExp(`(<div class="resize overflow-auto mx-auto">)?<img[^>]*src="${imageUrl.replace(/&/g, '&amp;').replace(/[.*+\-?^${}()|[\]\\]/g, '\\$&')}[^>]*>(<\/div>)?`, 'i');
 
-          const divWithClasses = `<div class="resize overflow-auto mx-auto">${targetString}</div>`;
+        const noEditorDivWithImg = new RegExp(`/<div[^>]*>\s*<img[^>]*src="${imageUrl}"[^>]*>\s*<\/div>/g`);
 
-          if (combinedRegex.test(this.itemForm.value.text)) {
-            this.itemForm.patchValue({ text: this.itemForm.value.text.replace(combinedRegex, divWithClasses) });
-          } else {
+        //div amb classes i imatge just pujada (sempre que no estigui modificat..)
+        const divWithClassesAndImg = `<div class="resize overflow-auto mx-auto">${targetImgString}</div>`;
+
+        //div buit amb imatge
+        const divWithoNoClassesButImg = `<div>${targetImgString}</div>`;
+
+        const prova = this.itemForm.value.text.match(divWithClassesAndImg);
+          
+        //si div amb classes, substituïm
+        if (prova) {
+          this.itemForm.patchValue({ text: this.itemForm.value.text.replace(divWithClassesAndImg, divWithClasses) });
+        } else if (this.itemForm.value.text.match(divWithoNoClassesButImg)) {
+          //si div buit, substituïm
+          this.itemForm.patchValue({ text: this.itemForm.value.text.replace(divWithoNoClassesButImg, divWithClasses) });
+        } else {
+            this.itemForm.patchValue({ text: this.itemForm.value.text.replace(`${targetImgString}`, divWithClasses) });
           }
       });
-
-
-
-
-
-
-
-
     })
     );
 }
