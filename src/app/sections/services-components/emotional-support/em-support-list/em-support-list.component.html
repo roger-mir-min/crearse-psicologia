@@ -41,7 +41,8 @@
 <!--ITEMS GRID-->
   <div class="bg-cr-blue2/[0.16] p-4 md:p-8 dark:bg-slate-600" role="list">
     <ng-container *ngFor="let em of vm.emArr; let i = index; trackBy: trackbyId">
-      <div class="mb-8 bg-base-100 dark:bg-slate-400 shadow-xl flex flex-col md:flex-row" 
+      <a aria-label="Abrir el artículo" routerLink="{{em.slug}}">
+      <div class="mb-8 bg-base-100 dark:bg-slate-400 shadow-xl hover:scale-95 hover:duration-500 duration-500 flex flex-col md:flex-row" 
       aria-label="Resumen del servicio de acompañamiento con posibilidad de abrirlo para más detalles" 
       role="listitem" aria-labelledby="title" aria-describedby="desc">
         <div class="md:flex-grow flex flex-col p-6 text-center md:text-start">
@@ -55,9 +56,10 @@
         </div>
         <div class="w-full h-56 md:h-auto md:w-56"><img class="block h-full object-cover w-full" [src]="encode(em.imageUrl!)" (error)="onImageError($event, i)" alt="Servicio de acompañamiento emocional:  {{ em.title }}"></div>
       </div>
+    </a>
     </ng-container>
   </div>
-  <span class="mt-5" *ngIf="finished$|async" class="text-cr-blue">No hay más cursos para mostrar</span>
+  <span class="mt-5" *ngIf="finished$|async" class="text-cr-blue text-sm">No hay más servicios de acompañamiento emocional para mostrar</span>
 </div>
 </ng-container>
 
