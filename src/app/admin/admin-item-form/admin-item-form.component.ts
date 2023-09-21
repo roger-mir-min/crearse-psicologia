@@ -291,35 +291,30 @@ uploadImageByAngularEditor(file: File): Observable<HttpEvent<UploadResponse>> {
     tap(res => {
       setTimeout(() => {
         const imageUrl = res.body?.imageUrl || '';
+
+        //capturar nom imatge
+        const imgUrlUntilName = imageUrl.match(/(.*?)\?alt=media/);
+        const imgUrlUntilNameParsed = imgUrlUntilName![1].replace("/", "\/");
         
-          const imgString = `<img src="${imageUrl}" alt="Imagen del ítem de contenido">`;
-          const replacementImgString = imgString.replace('media&token', 'media&amp;token');
+        const imgStringWithoutAlt = `<img src="${imageUrl}">`;
+        const targetImgString = imgStringWithoutAlt.replace('media&token', 'media&amp;token');
+
+        const ImgStringWithAlt = `<img src="${imageUrl}" alt="Imagen del ítem de contenido">`;
+        const replacementImgString = ImgStringWithAlt.replace('media&token', 'media&amp;token');
+        //div amb classes, és el que substituirem realment
+        const replacementString = `<div class="resize overflow-auto mx-auto">${replacementImgString}</div>`;
         
-          const imgStringWithoutAlt = `<img src="${imageUrl}">`;
-          const targetImgString = imgStringWithoutAlt.replace('media&token', 'media&amp;token');
-          
-          const divWithClasses = `<div class="resize overflow-auto mx-auto">${replacementImgString}</div>`;
-        
-          const combinedRegex = new RegExp(`(<div class="resize overflow-auto mx-auto">)?<img[^>]*src="${imageUrl.replace(/&/g, '&amp;').replace(/[.*+\-?^${}()|[\]\\]/g, '\\$&')}[^>]*>(<\/div>)?`, 'i');
+        //regex per comprovar si img dins de div
+        const regexDivWithImg = new RegExp(`<div.*?><img src=['"]${imgUrlUntilNameParsed}.+?['"]><\/div>`);
 
-        const noEditorDivWithImg = new RegExp(`/<div[^>]*>\s*<img[^>]*src="${imageUrl}"[^>]*>\s*<\/div>/g`);
+        const itemFormText = this.itemForm.value.text;
 
-        //div amb classes i imatge just pujada (sempre que no estigui modificat..)
-        const divWithClassesAndImg = `<div class="resize overflow-auto mx-auto">${targetImgString}</div>`;
+        const testDivWithImg = itemFormText.match(regexDivWithImg);
 
-        //div buit amb imatge
-        const divWithoNoClassesButImg = `<div>${targetImgString}</div>`;
-
-        const prova = this.itemForm.value.text.match(divWithClassesAndImg);
-          
-        //si div amb classes, substituïm
-        if (prova) {
-          this.itemForm.patchValue({ text: this.itemForm.value.text.replace(divWithClassesAndImg, divWithClasses) });
-        } else if (this.itemForm.value.text.match(divWithoNoClassesButImg)) {
-          //si div buit, substituïm
-          this.itemForm.patchValue({ text: this.itemForm.value.text.replace(divWithoNoClassesButImg, divWithClasses) });
+        if (testDivWithImg) {
+          this.itemForm.patchValue({ text: this.itemForm.value.text.replace(regexDivWithImg, replacementString) });
         } else {
-            this.itemForm.patchValue({ text: this.itemForm.value.text.replace(`${targetImgString}`, divWithClasses) });
+            this.itemForm.patchValue({ text: this.itemForm.value.text.replace(targetImgString, replacementString) });
           }
       });
     })
